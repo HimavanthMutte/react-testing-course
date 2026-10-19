@@ -1,19 +1,25 @@
-import { render, screen } from '@testing-library/react';
-// Note: technically already available globally
-import { test, expect } from 'vitest';
-import App from '../App';
+import {render,screen} from "@testing-library/react"
 
-// Test if heading renders correctly
-test('should render heading with correct text', () => {
-  // Render the App component
-  render(<App />);
+import {it,describe,expect} from "vitest"
 
-  // Log the DOM tree for debugging
-  screen.debug();
+import App from "../App"
 
-  // Find heading by its text content
-  const heading = screen.getByText('React Testing Library');
+describe("Tests on App component",()=>{
+  beforeEach(()=>{
+    render(<App/>)
+    screen.debug()
+  })
 
-  // Verify heading exists in document
-  expect(heading).toBeInTheDocument();
-});
+  it("should contain a heading",()=>{
+    const heading = screen.getByRole("heading")
+    expect(heading).toBeInTheDocument()
+  })
+
+  it("should contain heading with expected text",()=>{
+    const heading = screen.getByRole("heading")
+    expect(heading).toHaveTextContent("React Testing Library")
+  })
+
+
+
+})
