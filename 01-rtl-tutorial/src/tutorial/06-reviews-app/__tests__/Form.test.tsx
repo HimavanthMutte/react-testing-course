@@ -8,7 +8,7 @@ import userEvent from "@testing-library/user-event"
 
 const fakeSubmit = vi.fn()
 
-const getFormElemets = () =>({
+export const getFormElements = () =>({
     emailEle: screen.getByRole("textbox",{name: "Email"}),
     dropDownEle: screen.getByRole("combobox",{name: "Rating"}),
     textAreaEle: screen.getByRole("textbox",{name: "Your Review"}),
@@ -18,7 +18,7 @@ const getFormElemets = () =>({
 describe("Form Testing",()=>{
     it("renders form elements correctly",()=>{
         render(<Form onSubmit={fakeSubmit}/>)
-        const {emailEle, dropDownEle, textAreaEle, buttonEle} = getFormElemets()
+        const {emailEle, dropDownEle, textAreaEle, buttonEle} = getFormElements()
 
         expect(emailEle).toHaveValue("")
         expect(dropDownEle).toHaveValue("")
@@ -30,7 +30,7 @@ describe("Form Testing",()=>{
     it("Should display - Review must be at least 10 characters long - when short",async()=>{
         const user = userEvent.setup()
         render(<Form onSubmit={fakeSubmit}/>)
-        const {emailEle, dropDownEle, textAreaEle, buttonEle} = getFormElemets()
+        const {emailEle, dropDownEle, textAreaEle, buttonEle} = getFormElements()
 
         await user.type(emailEle,"test@example.com")
         await user.selectOptions(dropDownEle,'5');
@@ -43,7 +43,7 @@ describe("Form Testing",()=>{
     it("Should Submit - no errors",async()=>{
         const user = userEvent.setup()
         render(<Form onSubmit={fakeSubmit}/>)
-        const {emailEle, dropDownEle, textAreaEle, buttonEle} = getFormElemets()
+        const {emailEle, dropDownEle, textAreaEle, buttonEle} = getFormElements()
 
         await user.type(emailEle,"test@example.com")
         await user.selectOptions(dropDownEle,'5');
